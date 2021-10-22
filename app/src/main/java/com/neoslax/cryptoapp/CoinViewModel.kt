@@ -3,6 +3,7 @@ package com.neoslax.cryptoapp
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.google.gson.Gson
 import com.neoslax.cryptoapp.api.ApiFactory
 import com.neoslax.cryptoapp.database.AppDatabase
@@ -10,6 +11,7 @@ import com.neoslax.cryptoapp.pojo.CoinPriceInfo
 import com.neoslax.cryptoapp.pojo.CoinPriceInfoRawData
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,12 +21,23 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     val priceList = db.coinPriceInfoDao().getPriceList()
 
+    init {
+        loadData()
+    }
 
-    fun loadData() {
+    fun getCoinDetailInfo(fSym: String): LiveData<CoinPriceInfo> {
+        return db.coinPriceInfoDao().getPriceInfoAboutCoin(fSym)
+    }
+
+
+    private fun loadData() {
         val disposable = ApiFactory.apiService.getTopCoinInfo()
             .map { it.data?.map { it.coinInfo?.name }?.joinToString(",") ?: "nulls" }
             .flatMap { ApiFactory.apiService.getPriceInfoFullData(fSym = it) }
             .map { getCoinInfoFromJson(it) }
+            .delaySubscription(10, TimeUnit.SECONDS)
+            .repeat()
+            .retry()
             .subscribeOn(Schedulers.io())
             .subscribe({
                 db.coinPriceInfoDao().insertPriceList(it)

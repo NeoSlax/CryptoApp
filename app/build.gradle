@@ -42,7 +42,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     //RxJava Retrofit adapter
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     //GSON
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // ViewModel

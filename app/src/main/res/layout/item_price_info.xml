@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_crypto_currency"
+            android:id="@+id/tvCryptoCurrency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -24,7 +24,7 @@
             tools:text="BTC" />
 
         <TextView
-            android:id="@+id/tv_currency_val"
+            android:id="@+id/tvCurrencyVal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -33,29 +33,29 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_crypto_currency"
+            app:layout_constraintTop_toBottomOf="@id/tvCryptoCurrency"
             tools:text="75860"
 
             />
 
         <TextView
-            android:id="@+id/tv_last_update"
+            android:id="@+id/tvLastUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_currency_val"
+            app:layout_constraintTop_toBottomOf="@id/tvCurrencyVal"
             tools:text="Обновлено 12:12:12" />
 
         <ImageView
-            android:id="@+id/iv_currency_image"
+            android:id="@+id/ivCurrencyImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:contentDescription="@string/currency_logo"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_crypto_currency"
+            app:layout_constraintEnd_toStartOf="@id/tvCryptoCurrency"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

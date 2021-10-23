@@ -7,13 +7,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 
-class MainActivity : AppCompatActivity() {
+class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var viewModel:CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.price_list_activity)
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.getCoinDetailInfo("BTC").observe(this, Observer {
             Log.d("TEST_COIN_INFO", "Success in activity ${it.toString()}")

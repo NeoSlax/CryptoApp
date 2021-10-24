@@ -12,7 +12,7 @@ import com.neoslax.cryptoapp.pojo.CoinPriceInfo
 
 class CoinPriceListActivity : AppCompatActivity() {
 
-    private lateinit var viewModel:CoinViewModel
+    private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +23,12 @@ class CoinPriceListActivity : AppCompatActivity() {
         val adapter = CoinInfoAdapter(this)
 
         binding.rvPriceListActivity.adapter = adapter
-        adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener{
+        adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coin: CoinPriceInfo) {
                 Log.d("TEST_COIN_INFO", "Click on  ${coin.fromSymbol}")
+                val intent =
+                    CoinDetailActivity.getIntent(this@CoinPriceListActivity, coin.fromSymbol)
+                startActivity(intent)
             }
         }
 

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CoinDetailActivity">
+
+    <ImageView
+        android:id="@+id/ivDetailInfo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@id/guidLine33"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        tools:src="@mipmap/ic_launcher" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidLine33"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <TextView
+        android:id="@+id/tvFromCurrencyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_500"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@id/tvSlash"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivDetailInfo"
+        tools:text="ETC" />
+
+    <TextView
+        android:id="@+id/tvToCurrencyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_700"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvSlash"
+        app:layout_constraintTop_toBottomOf="@id/ivDetailInfo"
+        tools:text="USD" />
+
+    <TextView
+        android:id="@+id/tvSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/"
+        android:textColor="@color/purple_200"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@id/tvToCurrencyName"
+        app:layout_constraintStart_toEndOf="@id/tvFromCurrencyName"
+        app:layout_constraintTop_toBottomOf="@id/ivDetailInfo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startVerticalGL"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endVerticalGL"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toStartOf="@id/endVerticalGL"
+        app:layout_constraintStart_toEndOf="@id/startVerticalGL"
+        app:layout_constraintTop_toBottomOf="@id/tvFromCurrencyName">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp">
+
+            <TextView
+                android:id="@+id/tvCurrencyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Currency:"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/green"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvCurrencyLabel"
+                app:layout_constraintStart_toEndOf="@id/tvCurrencyLabel"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="7813" />
+
+            <View
+                android:id="@+id/spacer1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrencyLabel" />
+
+            <TextView
+                android:id="@+id/tvCurrencyMinLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Min Price:"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spacer1" />
+
+            <TextView
+                android:id="@+id/tvCurrencyMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvCurrencyMinLabel"
+                app:layout_constraintStart_toEndOf="@id/tvCurrencyMinLabel"
+                app:layout_constraintTop_toBottomOf="@id/spacer1"
+                tools:text="7813" />
+
+            <View
+                android:id="@+id/spacer2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrencyMinLabel" />
+
+            <TextView
+                android:id="@+id/tvCurrencyMaxLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Max Price:"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spacer2" />
+
+            <TextView
+                android:id="@+id/tvCurrencyMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/green"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvCurrencyMaxLabel"
+                app:layout_constraintStart_toEndOf="@id/tvCurrencyMaxLabel"
+                app:layout_constraintTop_toBottomOf="@id/spacer2"
+                tools:text="7813" />
+
+            <View
+                android:id="@+id/spacer3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrencyMaxLabel" />
+
+            <TextView
+                android:id="@+id/tvLastTransactionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Last transaction:"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spacer3" />
+
+            <TextView
+                android:id="@+id/tvLastTransaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvLastTransactionLabel"
+                app:layout_constraintStart_toEndOf="@id/tvLastTransactionLabel"
+                app:layout_constraintTop_toBottomOf="@id/spacer3"
+                tools:text="7813" />
+
+            <View
+                android:id="@+id/spacer4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLastTransactionLabel" />
+
+            <TextView
+                android:id="@+id/tvLastUpdateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Last update:"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spacer4" />
+
+            <TextView
+                android:id="@+id/tvLastUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvLastUpdateLabel"
+                app:layout_constraintStart_toEndOf="@id/tvLastUpdateLabel"
+                app:layout_constraintTop_toBottomOf="@id/spacer4"
+                tools:text="7813" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

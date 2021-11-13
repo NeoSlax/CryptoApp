@@ -23,6 +23,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         val adapter = CoinInfoAdapter(this)
 
         binding.rvPriceListActivity.adapter = adapter
+        binding.rvPriceListActivity.itemAnimator = null
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coin: CoinInfo) {
                 Log.d("TEST_COIN_INFO", "Click on  ${coin.fromSymbol}")
@@ -35,7 +36,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
 
         viewModel.coinInfoList.observe(this, {
-            adapter.coinList = it
+            adapter.submitList(it)
         })
 
     }

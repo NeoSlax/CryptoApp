@@ -1,4 +1,4 @@
-package com.neoslax.cryptoapp.adapter
+package com.neoslax.cryptoapp.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neoslax.cryptoapp.R
 import com.neoslax.cryptoapp.databinding.ItemPriceInfoBinding
-import com.neoslax.cryptoapp.pojo.CoinPriceInfo
+import com.neoslax.cryptoapp.domain.entities.CoinInfo
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
-    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
+    RecyclerView.Adapter<CoinInfoViewHolder>() {
 
     var onCoinClickListener: OnCoinClickListener? = null
 
-    var coinList: List<CoinPriceInfo> = listOf()
+    var coinList: List<CoinInfo> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -39,9 +39,9 @@ class CoinInfoAdapter(private val context: Context) :
                 coinPriceInfo.fromSymbol,
                 coinPriceInfo.toSymbol
             )
-            tvLastUpdate.text = String.format(timePattern, coinPriceInfo.getLastUpdateTime())
+            tvLastUpdate.text = String.format(timePattern,coinPriceInfo.lastUpdate)
             tvCurrencyVal.text = coinPriceInfo.price.toString()
-            Picasso.get().load(coinPriceInfo.getImageFullUrl()).into(ivCurrencyImage)
+            Picasso.get().load(coinPriceInfo.imageUrl).into(ivCurrencyImage)
             root.setOnClickListener {
                 onCoinClickListener?.onCoinClick(coinPriceInfo)
             }
@@ -52,10 +52,7 @@ class CoinInfoAdapter(private val context: Context) :
     override fun getItemCount(): Int = coinList.size
 
 
-    inner class CoinInfoViewHolder(val binding: ItemPriceInfoBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
     interface OnCoinClickListener {
-        fun onCoinClick(coin: CoinPriceInfo)
+        fun onCoinClick(coin: CoinInfo)
     }
 }

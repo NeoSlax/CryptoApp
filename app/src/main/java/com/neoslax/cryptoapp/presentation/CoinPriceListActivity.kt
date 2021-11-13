@@ -1,13 +1,13 @@
-package com.neoslax.cryptoapp
+package com.neoslax.cryptoapp.presentation
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.neoslax.cryptoapp.adapter.CoinInfoAdapter
+import com.neoslax.cryptoapp.presentation.adapter.CoinInfoAdapter
 import com.neoslax.cryptoapp.databinding.PriceListActivityBinding
-import com.neoslax.cryptoapp.pojo.CoinPriceInfo
+import com.neoslax.cryptoapp.data.network.model.CoinInfoDto
+import com.neoslax.cryptoapp.domain.entities.CoinInfo
 
 
 class CoinPriceListActivity : AppCompatActivity() {
@@ -24,7 +24,7 @@ class CoinPriceListActivity : AppCompatActivity() {
 
         binding.rvPriceListActivity.adapter = adapter
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
-            override fun onCoinClick(coin: CoinPriceInfo) {
+            override fun onCoinClick(coin: CoinInfo) {
                 Log.d("TEST_COIN_INFO", "Click on  ${coin.fromSymbol}")
                 val intent =
                     CoinDetailActivity.getIntent(this@CoinPriceListActivity, coin.fromSymbol)
@@ -33,12 +33,8 @@ class CoinPriceListActivity : AppCompatActivity() {
         }
 
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.getCoinDetailInfo("BTC").observe(this, {
-            Log.d("TEST_COIN_INFO", "Success in activity ${it.toString()}")
 
-        })
-
-        viewModel.priceList.observe(this, {
+        viewModel.coinInfoList.observe(this, {
             adapter.coinList = it
         })
 

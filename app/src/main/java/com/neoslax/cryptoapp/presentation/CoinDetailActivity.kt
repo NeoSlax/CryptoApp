@@ -1,24 +1,24 @@
-package com.neoslax.cryptoapp
+package com.neoslax.cryptoapp.presentation
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.neoslax.cryptoapp.databinding.ActivityCoinDetailBinding
 import com.squareup.picasso.Picasso
 
 class CoinDetailActivity : AppCompatActivity() {
 
-    lateinit var viewModel: CoinViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this)[CoinViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityCoinDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
 
         if (!intent.hasExtra(FROM_SYMBOL)) {
             finish()
@@ -29,14 +29,14 @@ class CoinDetailActivity : AppCompatActivity() {
             viewModel.getCoinDetailInfo(it).observe(this) {
                 Log.d("COIN_DETAIL_INFO", it.toString())
                 with(binding) {
-                    Picasso.get().load(it.getImageFullUrl()).into(ivDetailInfo)
+                    Picasso.get().load(it.imageUrl).into(ivDetailInfo)
                     tvFromCurrencyName.text = it.fromSymbol
                     tvToCurrencyName.text = it.toSymbol
                     tvCurrency.text = it.price.toString()
                     tvCurrencyMax.text = it.highDay.toString()
                     tvCurrencyMin.text = it.lowDay.toString()
                     tvLastTransaction.text = it.lastMarket
-                    tvLastUpdate.text = it.getLastUpdateTime()
+                    tvLastUpdate.text = it.lastUpdate
 
                 }
             }

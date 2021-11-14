@@ -1,26 +1,25 @@
-package com.neoslax.cryptoapp.api
+package com.neoslax.cryptoapp.data.network
 
-import com.neoslax.cryptoapp.pojo.CoinInfoListOfData
-import com.neoslax.cryptoapp.pojo.CoinPriceInfoRawData
-import io.reactivex.rxjava3.core.Single
+import com.neoslax.cryptoapp.data.network.model.CoinNamesListDto
+import com.neoslax.cryptoapp.data.network.model.CoinInfoJsonContainerDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
 
     @GET("top/totalvolfull")
-    fun getTopCoinInfo(
+    suspend fun getTopCoinInfo(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
         @Query(QUERY_PARAM_LIMIT) limit: Int = 10,
         @Query(QUERY_PARAM_TOSYM) tSym: String = CURRENCY
-        ): Single<CoinInfoListOfData>
+        ): CoinNamesListDto
 
     @GET("pricemultifull")
-    fun getPriceInfoFullData(
+    suspend fun getPriceInfoFullData(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
         @Query(QUERY_PARAM_FROMSYM) fSym: String = FROMCURRENCY,
         @Query(QUERY_PARAM_TOSYMS) tSym: String = CURRENCY
-        ): Single<CoinPriceInfoRawData>
+        ): CoinInfoJsonContainerDto
 
     companion object{
         private const val QUERY_PARAM_API_KEY = "api_key"

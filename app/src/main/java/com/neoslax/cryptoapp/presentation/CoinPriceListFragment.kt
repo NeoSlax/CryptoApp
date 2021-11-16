@@ -8,7 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionInflater
 import com.neoslax.cryptoapp.R
 import com.neoslax.cryptoapp.databinding.FragmentCoinListBinding
 import com.neoslax.cryptoapp.domain.entities.CoinInfo
@@ -22,6 +26,13 @@ class CoinPriceListFragment : Fragment() {
     private var _binding: FragmentCoinListBinding? = null
     private val binding: FragmentCoinListBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinListBinding == null")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
+        exitTransition = inflater.inflateTransition(R.transition.slide_left)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,12 +83,14 @@ class CoinPriceListFragment : Fragment() {
                 popBackStack()
                 beginTransaction()
                     .replace(R.id.main_container_detailed, CoinDetailFragment.newInstance(fSym))
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null).commit()
             }
         } else {
             requireActivity().supportFragmentManager.popBackStack()
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, CoinDetailFragment.newInstance(fSym))
+
                 .addToBackStack(null).commit()
 
         }

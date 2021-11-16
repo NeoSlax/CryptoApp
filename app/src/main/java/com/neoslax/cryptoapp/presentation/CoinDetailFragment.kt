@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionInflater
+import com.neoslax.cryptoapp.R
 import com.neoslax.cryptoapp.databinding.CoinDetailFragmentBinding
 import com.squareup.picasso.Picasso
 
@@ -19,6 +21,13 @@ class CoinDetailFragment : Fragment() {
     private var _binding: CoinDetailFragmentBinding? = null
     private val binding: CoinDetailFragmentBinding
         get() = _binding ?: throw RuntimeException("CoinDetailFragmentBinding == null")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
+        returnTransition = inflater.inflateTransition(R.transition.slide_left)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

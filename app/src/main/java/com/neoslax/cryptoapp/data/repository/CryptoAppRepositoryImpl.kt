@@ -1,21 +1,26 @@
 package com.neoslax.cryptoapp.data.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import com.neoslax.cryptoapp.data.database.AppDatabase
+import com.neoslax.cryptoapp.data.database.CoinInfoDao
 import com.neoslax.cryptoapp.data.mapper.CoinMapper
 import com.neoslax.cryptoapp.data.network.ApiFactory
+import com.neoslax.cryptoapp.data.network.ApiService
 import com.neoslax.cryptoapp.domain.entities.CoinInfo
 import com.neoslax.cryptoapp.domain.repository.CryptoAppRepository
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class CryptoAppRepositoryImpl(val application: Application) : CryptoAppRepository {
-
-    private val coinInfoDao = AppDatabase.getInstance(application).coinInfoDao()
-    private val apiService = ApiFactory.apiService
-    private val coinMapper = CoinMapper()
+class CryptoAppRepositoryImpl @Inject constructor(
+    application: Application,
+    private val coinInfoDao: CoinInfoDao,
+    private val apiService: ApiService,
+    private val coinMapper: CoinMapper
+) : CryptoAppRepository {
 
     override fun getCoinDetailInfo(coinName: String): LiveData<CoinInfo> {
         return MediatorLiveData<CoinInfo>().apply {
@@ -43,6 +48,7 @@ class CryptoAppRepositoryImpl(val application: Application) : CryptoAppRepositor
                 val coinInfoJson = apiService.getPriceInfoFullData(fSym = fSyms)
                 val coinInfoDtoList = coinMapper.mapJsonContainerToListCoinInfo(coinInfoJson)
                 coinInfoDao.insertPriceList(coinInfoDtoList.map { coinMapper.mapDtoToDbModel(it) })
+                Log.d("TEST", "loadData()  == $coinInfoDtoList")
             } catch (e: Exception) {
             }
             delay(RELOAD_DELAY_IN_MS)

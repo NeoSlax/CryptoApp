@@ -1,7 +1,8 @@
 package com.neoslax.cryptoapp.domain.usecases
 
 import com.neoslax.cryptoapp.domain.repository.CryptoAppRepository
+import javax.inject.Inject
 
-class GetTopCoinPriceListUseCase(private val repository: CryptoAppRepository) {
+class GetTopCoinPriceListUseCase @Inject constructor(private val repository: CryptoAppRepository) {
     operator fun invoke() = repository.getTopCoinPriceList()
 }

@@ -1,5 +1,6 @@
 package com.neoslax.cryptoapp.presentation
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -13,15 +14,31 @@ import com.neoslax.cryptoapp.R
 import com.neoslax.cryptoapp.databinding.FragmentCoinListBinding
 import com.neoslax.cryptoapp.domain.entities.CoinInfo
 import com.neoslax.cryptoapp.presentation.adapter.CoinInfoAdapter
+import javax.inject.Inject
 
 
 class CoinPriceListFragment : Fragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this)[CoinViewModel::class.java] }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy { ViewModelProvider(
+        this,
+        viewModelFactory
+    )[CoinViewModel::class.java] }
+
+    private val component by lazy {
+        (requireActivity().application as CoinApp).component
+    }
 
     private var _binding: FragmentCoinListBinding? = null
     private val binding: FragmentCoinListBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinListBinding == null")
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -59,7 +59,6 @@ class CoinPriceListFragment : Fragment() {
         val isLandMode =
             when (resources.configuration.orientation) {
                 Configuration.ORIENTATION_LANDSCAPE -> true
-
                 else -> false
             }
         val adapter = CoinInfoAdapter(requireContext())

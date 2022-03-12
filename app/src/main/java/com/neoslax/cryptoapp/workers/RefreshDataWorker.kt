@@ -2,21 +2,23 @@ package com.neoslax.cryptoapp.workers
 
 import android.content.Context
 import android.util.Log
-import androidx.work.CoroutineWorker
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.neoslax.cryptoapp.data.database.AppDatabase
+import com.neoslax.cryptoapp.data.database.CoinInfoDao
 import com.neoslax.cryptoapp.data.mapper.CoinMapper
-import com.neoslax.cryptoapp.data.network.ApiFactory.apiService
-import com.neoslax.cryptoapp.data.repository.CryptoAppRepositoryImpl
+import com.neoslax.cryptoapp.data.network.ApiService
+
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class RefreshDataWorker(context: Context, workerParams: WorkerParameters) :
-    CoroutineWorker(context, workerParams) {
+class RefreshDataWorker(
+    context: Context,
+    workerParams: WorkerParameters,
+    private val coinMapper: CoinMapper,
+    private val coinInfoDao: CoinInfoDao,
+    private val apiService: ApiService
+) : CoroutineWorker(context, workerParams) {
 
-    private val coinMapper = CoinMapper()
-    private val coinInfoDao = AppDatabase.getInstance(context).coinInfoDao()
 
     override suspend fun doWork(): Result {
         while (true) {
@@ -38,6 +40,22 @@ class RefreshDataWorker(context: Context, workerParams: WorkerParameters) :
         const val NAME = "RefreshDataWorker"
         fun makeRequest(): OneTimeWorkRequest {
             return OneTimeWorkRequestBuilder<RefreshDataWorker>().build()
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val coinMapper: CoinMapper,
+        private val coinInfoDao: CoinInfoDao,
+        private val apiService: ApiService
+    ) : ChildWorkerFactory {
+        override fun create(context: Context, workerParams: WorkerParameters): ListenableWorker {
+            return RefreshDataWorker(
+                context,
+                workerParams,
+                coinMapper,
+                coinInfoDao,
+                apiService
+            )
         }
     }
 }

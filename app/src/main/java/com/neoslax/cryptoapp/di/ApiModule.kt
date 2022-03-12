@@ -1,5 +1,6 @@
 package com.neoslax.cryptoapp.di
 
+import com.neoslax.cryptoapp.data.network.ApiFactory
 import com.neoslax.cryptoapp.data.network.ApiService
 import dagger.Module
 import dagger.Provides
@@ -13,11 +14,7 @@ object ApiModule {
 
     @Provides
     fun provideApiService(): ApiService {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(ApiService::class.java)
+        return ApiFactory.apiService
     }
 
 }

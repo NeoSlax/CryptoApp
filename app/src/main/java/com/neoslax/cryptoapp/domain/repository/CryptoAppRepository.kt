@@ -9,6 +9,6 @@ interface CryptoAppRepository {
 
     fun getTopCoinPriceList(): LiveData<List<CoinInfo>>
 
-    suspend fun loadData()
+    fun loadData()
 
 }

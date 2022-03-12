@@ -17,10 +17,7 @@ class CoinViewModel @Inject constructor(
     val coinInfoList = getTopCoinPriceListUseCase()
 
     init {
-
-        viewModelScope.launch {
-            loadDataUseCase()
-        }
+           loadDataUseCase()
     }
 
     fun getCoinDetailInfo(fSym: String) = getCoinDetailInfoUseCase(fSym)

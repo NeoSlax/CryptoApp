@@ -1,12 +1,10 @@
 package com.neoslax.cryptoapp.presentation
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.neoslax.cryptoapp.R
 import com.neoslax.cryptoapp.databinding.MainActivityBinding
+import com.neoslax.cryptoapp.di.DaggerApplicationComponent
 
 
 class MainActivity : AppCompatActivity() {

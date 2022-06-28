@@ -13,6 +13,6 @@ jobs:
       - name: Build Android App
         uses: sparkfabrik/android-build-action@v1.2.0
         with:
-          project-path:
+          project-path: CryptoApp
           output-path: crypto-app-test.apk
 

@@ -5,14 +5,26 @@ on:
   pull_request:
 
 jobs:
-  build:
-
+  install-and-test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: "Build Android project"
-        uses: vgaidarji/android-github-actions-build@v1.0.1
+      - uses: actions/checkout@v2
+      - name: Install npm dependencies
+        run: |
+          npm install
+  build-android:
+    needs: install-and-test
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Install npm dependencies
+        run: |
+          npm install
+      - name: Build Android Release
+        run: |
+          cd android && ./gradlew assembleRelease
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
         with:
-          args: "./gradlew assembleDebug"
-
-
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/

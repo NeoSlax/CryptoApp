@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Build Android App
-        uses: sparkfabrik/android-build-action@v1.2.0
+      - name: "Build Android project"
+        uses: vgaidarji/android-github-actions-build@v1.0.1
         with:
-          project-path: /home/runner/work/CryptoApp/CryptoApp
-          output-path: crypto-app-test.apk
+          args: "./gradlew assembleDebug"
+
 

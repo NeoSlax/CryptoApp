@@ -10,6 +10,7 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.round
 
 class CoinMapper @Inject constructor() {
 
@@ -63,7 +64,7 @@ class CoinMapper @Inject constructor() {
         }?.joinToString(",") ?: "nulls"
     }
 
-    private fun timeStampConverter(timestamp: Long?): String{
+    private fun timeStampConverter(timestamp: Long?): String {
 
         if (timestamp == null) return ""
         val stamp = Timestamp(timestamp * 1000)

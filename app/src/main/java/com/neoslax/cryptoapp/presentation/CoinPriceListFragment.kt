@@ -121,6 +121,7 @@ class CoinPriceListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.errorBottomBar.animate().cancel()
         _binding = null
     }
 

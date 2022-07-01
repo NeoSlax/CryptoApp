@@ -35,19 +35,13 @@ class CoinInfoAdapter(private val context: Context) :
                 coinPriceInfo.toSymbol
             )
             tvLastUpdate.text = String.format(timePattern, coinPriceInfo.lastUpdate)
-            tvCurrencyVal.text = coinPriceInfo.price.cropPriceValue()
-            Picasso.get().load(coinPriceInfo.imageUrl)
-                .placeholder(R.drawable.progress_animation)
-                .into(ivCurrencyImage)
+            tvCurrencyVal.text = coinPriceInfo.price.toString()
+            Picasso.get().load(coinPriceInfo.imageUrl).into(ivCurrencyImage)
             root.setOnClickListener {
                 onCoinClickListener?.onCoinClick(coinPriceInfo)
             }
         }
 
-    }
-
-    private fun String?.cropPriceValue(): String {
-        return this?.let { String.format("%.2f", this.toDouble()) } ?: ""
     }
 
     interface OnCoinClickListener {

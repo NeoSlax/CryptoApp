@@ -1,5 +1,6 @@
 package com.neoslax.cryptoapp.presentation
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
@@ -22,10 +23,12 @@ class CoinPriceListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel by lazy { ViewModelProvider(
-        this,
-        viewModelFactory
-    )[CoinViewModel::class.java] }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        )[CoinViewModel::class.java]
+    }
 
     private val component by lazy {
         (requireActivity().application as CoinApp).component
@@ -76,9 +79,25 @@ class CoinPriceListFragment : Fragment() {
             }
         }
 
-        viewModel.coinInfoList.observe(viewLifecycleOwner, {
+        viewModel.coinInfoList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                binding.progressCircular.visibility = View.GONE
+                binding.errorBottomBar.animate().apply {
+                    translationY(100f)
+                    duration = 300
+                    withEndAction { binding.errorBottomBar.visibility = View.GONE }
+                    start()
+                }
+                binding.rvPriceListActivity.animate().apply {
+                    scaleX(1f)
+                    scaleY(1f)
+                    duration = 300
+                    start()
+                }
+
+            }
             adapter.submitList(it)
-        })
+        }
 
     }
 
@@ -102,6 +121,7 @@ class CoinPriceListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.errorBottomBar.animate().cancel()
         _binding = null
     }
 

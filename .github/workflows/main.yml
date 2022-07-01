@@ -1,0 +1,25 @@
+name: Android CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  Gradle:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v2
+    - name: setup jdk
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Make Gradle executable
+      run: chmod +x ./gradlew
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: app-debug.apk
+        path: app/build/outputs/apk/debug/

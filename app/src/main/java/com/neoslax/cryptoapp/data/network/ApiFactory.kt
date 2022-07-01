@@ -10,15 +10,15 @@ object ApiFactory {
 
     private const val BASE_URL = "https://min-api.cryptocompare.com/data/"
 
-    private val httpLogInterceptor = HttpLoggingInterceptor()
-
     private val retrofit = Retrofit.Builder()
 
         .addConverterFactory(GsonConverterFactory.create())
-        .client(OkHttpClient.Builder().addInterceptor(httpLogInterceptor).build())
+        .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }).build())
         .baseUrl(BASE_URL)
         .build()
 
-    val apiService = retrofit.create(ApiService::class.java)
+    val apiService: ApiService = retrofit.create(ApiService::class.java)
 
 }
